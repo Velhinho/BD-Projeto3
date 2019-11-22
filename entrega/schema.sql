@@ -3,7 +3,7 @@ BEGIN;
 CREATE TABLE public_location (
     latitude numeric(9, 6),
     longitude numeric(8, 6),
-    name varchar(255) NOT NULL,
+    location_name varchar(255) NOT NULL,
     
     PRIMARY KEY (latitude, longitude)
 );
@@ -54,65 +54,65 @@ CREATE TABLE duplicate (
 );
 
 CREATE TABLE user_table (
-    email varchar(254),
+    user_email varchar(254),
     user_password varchar(254) NOT NULL,
 
-    PRIMARY KEY (email)    
+    PRIMARY KEY (user_email)    
     /*
     CONSTRAINT user_specification 
-        CHECK(email in qualified_user or in regular_user) 
+        CHECK(user_email in qualified_user or in regular_user) 
     */
 );
 
 CREATE TABLE qualified_user (
-    email varchar(254),
+    user_email varchar(254),
 
-    PRIMARY KEY (email),
-    FOREIGN KEY (email) REFERENCES user_table(email)
+    PRIMARY KEY (user_email),
+    FOREIGN KEY (user_email) REFERENCES user_table(user_email)
     /*
     CONSTRAINT not_in_regular_user
-        CHECK(email not in regular_user)
+        CHECK(user_email not in regular_user)
     */
 );
 
 CREATE TABLE regular_user (
-    email varchar(254),
+    user_email varchar(254),
 
-    PRIMARY KEY (email),
-    FOREIGN KEY (email) REFERENCES user_table(email)
+    PRIMARY KEY (user_email),
+    FOREIGN KEY (user_email) REFERENCES user_table(user_email)
     /*
     CONSTRAINT not_in_qualified_user
-        CHECK(email not in qualified_user)
+        CHECK(user_email not in qualified_user)
     */
 );
 
 CREATE TABLE incident (
     anomaly_id char(36),
     item_id char(36),
-    email varchar(254),
+    user_email varchar(254),
 
     PRIMARY KEY (anomaly_id),
     FOREIGN KEY (anomaly_id) REFERENCES anomaly(id),
     FOREIGN KEY (item_id) REFERENCES item(id),
-    FOREIGN KEY (email) REFERENCES user_table(email)
+    FOREIGN KEY (user_email) REFERENCES user_table(user_email)
 );
 
 CREATE TABLE correction_proposal (
-    email varchar(254),
+    user_email varchar(254),
     nro char(36),
 
     UNIQUE(nro),
-    PRIMARY KEY (email),
-    FOREIGN KEY (email) REFERENCES qualified_user(email)
+    PRIMARY KEY (user_email),
+    FOREIGN KEY (user_email) REFERENCES qualified_user(user_email)
 );
 
 CREATE TABLE correction (
-    email varchar(254),
+    user_email varchar(254),
     nro char(36),
     anomaly_id char(36),
 
-    PRIMARY KEY (email, nro, anomaly_id),
-    FOREIGN KEY (email) REFERENCES correction_proposal(email),
+    PRIMARY KEY (user_email, nro, anomaly_id),
+    FOREIGN KEY (user_email) REFERENCES correction_proposal(user_email),
     FOREIGN KEY (nro) REFERENCES correction_proposal(nro),
     FOREIGN KEY (anomaly_id) REFERENCES incident(anomaly_id)
 );
