@@ -1,6 +1,6 @@
-INSERT INTO public_location value (latitude, longitude, location_name);
+INSERT INTO public_location VALUES (latitude, longitude, location_name);
 
-INSERT INTO item value (
+INSERT INTO item VALUES (
     id,
     description_text,
     location_name,
@@ -8,7 +8,7 @@ INSERT INTO item value (
     longitude
 );
 
-INSERT INTO anomaly value (
+INSERT INTO anomaly VALUES (
     id,
     area,
     image_path,
@@ -18,18 +18,18 @@ INSERT INTO anomaly value (
     has_wording_anomaly,
 );
 
-INSERT INTO translation_anomaly value (id, area2, lang2);
+INSERT INTO translation_anomaly VALUES (id, area2, lang2);
 
-INSERT INTO duplicate value (item1, item2);
+INSERT INTO duplicate VALUES (item1, item2);
 
-INSERT INTO user_table value (user_email, user_password);
+INSERT INTO user_table VALUES (user_email, user_password);
 
-INSERT INTO qualified_user value (user_email);
+INSERT INTO qualified_user VALUES (user_email);
 
-INSERT INTO regular_user value (user_email);
+INSERT INTO regular_user VALUES (user_email);
 
-INSERT INTO incident value (anomaly_id, item_id, user_email);
+INSERT INTO incident VALUES (anomaly_id, item_id, user_email);
 
-INSERT INTO correction_proposal value (user_email, nro);
+INSERT INTO correction_proposal VALUES (user_email);
 
-INSERT INTO correction value (user_email, nro, anomaly_id);
+INSERT INTO correction VALUES (user_email, anomaly_id);

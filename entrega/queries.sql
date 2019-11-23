@@ -1,32 +1,43 @@
-/*
 -- locais publicos e anomalias
-SELECT location_name, anomaly.id 
+SELECT location_name, anomaly_id 
 FROM public_location
-    NATURAL JOIN item,
+    NATURAL JOIN item
     NATURAL JOIN incident;
 
 -- numero de anomalias por local publico
-SELECT location_name, count(*)
-FROM (
-    SELECT location_name, anomaly.id 
-    FROM public_location
-        NATURAL JOIN item,
-        NATURAL JOIN incident
-)
+SELECT location_name, count(anomaly_id)
+FROM public_location
+    NATURAL JOIN item
+    NATURAL JOIN incident
 GROUP BY location_name;
-*/
 
-SELECT location_name, max(*)
+-- Max number of anomalies in a public place
+SELECT max(count)
 FROM (
-    SELECT count(*)
+    SELECT location_name, count(anomaly_id)
+    FROM public_location
+        NATURAL JOIN item
+        NATURAL JOIN incident
+    GROUP BY location_name
+) AS anomalies_per_location;
+
+-- Public place with the most anomalies
+SELECT location_name
+FROM public_location
+    NATURAL JOIN item
+    NATURAL JOIN incident
+GROUP BY location_name
+HAVING count(anomaly_id) = (
+    SELECT max(count)
     FROM (
-        SELECT location_name, anomaly_id 
+        SELECT location_name, count(anomaly_id)
         FROM public_location
-            NATURAL JOIN item,
+            NATURAL JOIN item
             NATURAL JOIN incident
-    )
-    GROUP BY location_name;
+        GROUP BY location_name
+    ) AS anomalies_per_location
 );
+
 
 /*
 -- anomalias de traducao no 1 semestre de 2019
@@ -74,8 +85,8 @@ FROM (
             NATURAL JOIN translation_anomaly
             NATURAL JOIN incident
             NATURAL JOIN regular_user
-        WHERE tmstmp >= timestamp '2019-01-01'
-            AND tmstmp <= timestamp '2019-06-01'
+        WHERE tmstmp >= timestamp '2019-01-01 00:00:00'
+            AND tmstmp <= timestamp '2019-06-01 00:00:00'
     )
     GROUP BY user_email
 );
