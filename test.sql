@@ -1,23 +1,31 @@
 BEGIN;
 
-INSERT INTO public_location VALUES (420, 420, 'amadora');
-INSERT INTO public_location VALUES (999, 999, 'taguspark');
-INSERT INTO public_location VALUES (666, 666, 'alameda');
+INSERT INTO public_location VALUES (42, 42, 'amadora');
+INSERT INTO public_location VALUES (99, 99, 'taguspark');
+INSERT INTO public_location VALUES (66, 66, 'alameda');
 
 INSERT INTO item VALUES (
     '12345',
     'TEST',
     'amadora',
-    420,
-    420
+    42,
+    42
 );
 
 INSERT INTO item VALUES (
     '11111',
     'ola',
     'taguspark',
-    999,
-    999
+    99,
+    99
+);
+
+INSERT INTO item VALUES (
+    '22222',
+    'Hello',
+    'taguspark',
+    99,
+    99
 );
 
 INSERT INTO anomaly VALUES (
@@ -34,9 +42,19 @@ INSERT INTO anomaly VALUES (
     '31415',
     'left',
     'foo.png',
-    'RUS',
+    'ENG',
     timestamp '2019-04-05 00:00:00',
     'YA',
+    TRUE
+);
+
+INSERT INTO anomaly VALUES (
+    '01010',
+    'left',
+    'bar.png',
+    'GER',
+    timestamp '2018-08-08 00:00:00',
+    'Very Bad',
     TRUE
 );
 
@@ -56,7 +74,9 @@ INSERT INTO regular_user VALUES ('super@user.com');
 
 INSERT INTO incident VALUES ('00000', '12345', 'jose@povinho.com');
 
-INSERT INTO incident VALUES ('11111', '12345', 'jose@povinho.com');
+INSERT INTO incident VALUES ('31415', '11111', 'jose@povinho.com');
+
+INSERT INTO incident VALUES ('01010', '22222', 'jose@povinho.com');
 
 INSERT INTO correction_proposal VALUES ('jose@povinho.com');
 
