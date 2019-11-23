@@ -23,7 +23,7 @@ INSERT INTO item VALUES (
 INSERT INTO anomaly VALUES (
     '00000',
     'center',
-    'www.google.com/image.png',
+    'asd.png',
     'ENG',
     timestamp '2019-01-01 00:00:00',
     'TEST',
@@ -31,16 +31,16 @@ INSERT INTO anomaly VALUES (
 );
 
 INSERT INTO anomaly VALUES (
-    '11111',
+    '31415',
     'left',
-    'www.bing.com/image.png',
+    'foo.png',
     'RUS',
     timestamp '2019-04-05 00:00:00',
     'YA',
     TRUE
 );
 
-INSERT INTO translation_anomaly VALUES ('00000', 'center-left', 'GER');
+INSERT INTO translation_anomaly VALUES ('00000', 'right', 'GER');
 
 INSERT INTO user_table VALUES ('super@user.com', 'admin');
 
