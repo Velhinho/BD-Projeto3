@@ -40,7 +40,7 @@ SELECT anomaly.id, tmstmp
     FROM anomaly
     INNER JOIN translation_anomaly
         ON anomaly.id = translation_anomaly.id
-    WHERE tmstmp <= timestamp '2019-06-01';
+    WHERE tmstmp BETWEEN '2019-01-01' AND '2019-06-01';
 
 -- Regular users that reported
 -- Translation anomalies in the first semestre of 2019
@@ -52,7 +52,7 @@ SELECT anomaly.id, anomaly.tmstmp, regular_user.user_email
         ON incident.anomaly_id = anomaly.id
     INNER JOIN regular_user
         ON incident.user_email = regular_user.user_email
-    WHERE tmstmp <= timestamp '2019-06-01';
+    WHERE tmstmp BETWEEN '2019-01-01' AND '2019-06-01';
 
 -- Number of reported translation anomalies per regular user
 SELECT regular_user.user_email, count(anomaly.id) AS anomaly_count
@@ -63,7 +63,7 @@ SELECT regular_user.user_email, count(anomaly.id) AS anomaly_count
         ON incident.anomaly_id = anomaly.id
     INNER JOIN regular_user
         ON incident.user_email = regular_user.user_email
-    WHERE tmstmp <= timestamp '2019-06-01'
+    WHERE tmstmp BETWEEN '2019-01-01' AND '2019-06-01'
     GROUP BY regular_user.user_email;
 
 -- all anomalies per all users
@@ -73,7 +73,7 @@ SELECT user_table.user_email, count(anomaly.id) AS anomaly_count
         ON incident.anomaly_id = anomaly.id
     INNER JOIN user_table
         ON incident.user_email = user_table.user_email
-    WHERE tmstmp <= timestamp '2019-06-01'
+    WHERE tmstmp BETWEEN '2019-01-01' AND '2019-06-01'
     GROUP BY user_table.user_email;
 
 -- Max number of reported translation anomalies
@@ -88,7 +88,7 @@ SELECT max(anomaly_count)
                 ON incident.anomaly_id = anomaly.id
             INNER JOIN regular_user
                 ON incident.user_email = regular_user.user_email
-            WHERE tmstmp <= timestamp '2019-06-01'
+            WHERE tmstmp BETWEEN '2019-01-01' AND '2019-06-01'
             GROUP BY regular_user.user_email
     ) AS anomalies_per_user;
 
@@ -102,7 +102,7 @@ SELECT max(anomaly_count)
                 ON incident.anomaly_id = anomaly.id
             INNER JOIN user_table
                 ON incident.user_email = user_table.user_email
-            WHERE tmstmp <= timestamp '2019-06-01'
+            WHERE tmstmp BETWEEN '2019-01-01' AND '2019-06-01'
             GROUP BY user_table.user_email
     ) AS anomalies_per_user;
 
@@ -113,7 +113,7 @@ SELECT user_table.user_email, count(anomaly.id) AS anomaly_count
         ON incident.anomaly_id = anomaly.id
     INNER JOIN user_table
         ON incident.user_email = user_table.user_email
-    WHERE tmstmp <= timestamp '2019-06-01'
+    WHERE tmstmp BETWEEN '2019-01-01' AND '2019-06-01'
     GROUP BY user_table.user_email
     HAVING count(anomaly.id) = (
         SELECT max(anomaly_count)
@@ -124,7 +124,7 @@ SELECT user_table.user_email, count(anomaly.id) AS anomaly_count
                         ON incident.anomaly_id = anomaly.id
                     INNER JOIN user_table
                         ON incident.user_email = user_table.user_email
-                    WHERE tmstmp <= timestamp '2019-06-01'
+                    WHERE tmstmp BETWEEN '2019-01-01' AND '2019-06-01'
                     GROUP BY user_table.user_email
             ) AS anomalies_per_user
     );
