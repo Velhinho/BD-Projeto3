@@ -72,7 +72,7 @@ INSERT INTO qualified_user VALUES ('coca@cola.com');
 
 INSERT INTO regular_user VALUES ('super@user.com');
 
-INSERT INTO incident VALUES ('00000', '12345', 'jose@povinho.com');
+INSERT INTO incident VALUES ('00000', '12345', 'super@user.com');
 
 INSERT INTO incident VALUES ('31415', '11111', 'jose@povinho.com');
 
