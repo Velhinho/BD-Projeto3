@@ -2,7 +2,9 @@
 SELECT public_location.location_name,
         count(incident.anomaly_id) AS anomaly_count
     FROM public_location
-    NATURAL JOIN item
+    INNER JOIN item
+        ON item.latitude = public_location.latitude
+        AND item.longitude = public_location.longitude
     INNER JOIN incident
         ON incident.item_id = item.id
     GROUP BY public_location.location_name
@@ -12,7 +14,9 @@ SELECT public_location.location_name,
                 SELECT public_location.location_name,
                         count(incident.anomaly_id) AS anomaly_count
                     FROM public_location
-                    NATURAL JOIN item
+                    INNER JOIN item
+                        ON item.latitude = public_location.latitude
+                        AND item.longitude = public_location.longitude
                     INNER JOIN incident
                         ON incident.item_id = item.id
                     GROUP BY public_location.location_name

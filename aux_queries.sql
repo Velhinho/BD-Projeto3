@@ -1,7 +1,9 @@
 -- public locations and anomalies
 SELECT public_location.location_name, incident.anomaly_id
     FROM public_location
-    NATURAL JOIN item
+    INNER JOIN item
+        ON item.latitude = public_location.latitude
+        AND item.longitude = public_location.longitude
     INNER JOIN incident
         ON incident.item_id = item.id;
 
@@ -9,7 +11,9 @@ SELECT public_location.location_name, incident.anomaly_id
 SELECT public_location.location_name,
         count(incident.anomaly_id) AS anomaly_count
     FROM public_location
-    NATURAL JOIN item
+    INNER JOIN item
+        ON item.latitude = public_location.latitude
+        AND item.longitude = public_location.longitude
     INNER JOIN incident
         ON incident.item_id = item.id
     GROUP BY public_location.location_name
@@ -21,7 +25,9 @@ SELECT max(anomaly_count)
         SELECT public_location.location_name,
                 count(incident.anomaly_id) AS anomaly_count
             FROM public_location
-            NATURAL JOIN item
+            INNER JOIN item
+                ON item.latitude = public_location.latitude
+                AND item.longitude = public_location.longitude
             INNER JOIN incident
                 ON incident.item_id = item.id
             GROUP BY public_location.location_name
