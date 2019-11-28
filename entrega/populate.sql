@@ -4,10 +4,10 @@ INSERT INTO public_location VALUES (69, 69, 'kappa');
 INSERT INTO public_location VALUES (39.336776, 45, 'ring');
 INSERT INTO public_location VALUES (39.336774, 32, 'cova da prima');
 INSERT INTO public_location VALUES (39.336775, 22, 'rio tinto');
-INSERT INTO public_location VALUES (09, 46, 'chelas');
-INSERT INTO public_location VALUES (321, 48, 'cacem');
+INSERT INTO public_location VALUES (9, 46, 'chelas');
+INSERT INTO public_location VALUES (21, 48, 'cacem');
 INSERT INTO public_location VALUES (39, 44, 'barcarena');
-INSERT INTO public_location VALUES (213, 321, 'massama');
+INSERT INTO public_location VALUES (21, 21, 'massama');
 INSERT INTO public_location VALUES (42, 42, 'queluz');
 INSERT INTO public_location VALUES (99, 99, 'taguspark');
 INSERT INTO public_location VALUES (66, 66, 'alameda');
@@ -47,7 +47,7 @@ INSERT INTO item VALUES (
     '67436',
     'foste gamado',
     'cacem',
-    321,
+    21,
     48
 );
 
@@ -71,20 +71,20 @@ INSERT INTO item VALUES (
     '62316',
     'STK2',
     'chelas',
-    09,
-    69
+    9,
+    46
 );
 
 INSERT INTO item VALUES (
     '69696',
     'STK',
     'chelas',
-    09,
-    69
+    9,
+    46
 );
 
 INSERT INTO item VALUES (
-    '69696',
+    '00007',
     'Tintol',
     'rio tinto',
     39.336775,
@@ -231,7 +231,7 @@ INSERT INTO anomaly VALUES (
 );
 
 INSERT INTO anomaly VALUES (
-    '31415',
+    '31115',
     'left',
     'foo.png',
     'ENG',
@@ -277,13 +277,12 @@ INSERT INTO user_table VALUES ('coca@cola.com', 'pepsi');
 INSERT INTO qualified_user VALUES ('jose@povinho.com');
 INSERT INTO qualified_user VALUES ('jose2@povinho.com');
 INSERT INTO qualified_user VALUES ('jose3@povinho.com');
-INSERT INTO qualified_user VALUES ('super@user.com', 'admin');
-INSERT INTO qualified_user VALUES ('super2@user.com', 'admin');
-INSERT INTO qualified_user VALUES ('super3@user.com', 'admin');
-INSERT INTO qualified_user VALUES ('super4@user.com', 'admin');
+INSERT INTO qualified_user VALUES ('super@user.com');
+INSERT INTO qualified_user VALUES ('super2@user.com');
+INSERT INTO qualified_user VALUES ('super3@user.com');
+INSERT INTO qualified_user VALUES ('super4@user.com');
 INSERT INTO qualified_user VALUES ('coca@cola.com');
 
-INSERT INTO regular_user VALUES ('super@user.com');
 INSERT INTO regular_user VALUES ('super5@user.com');
 INSERT INTO regular_user VALUES ('super6@user.com');
 INSERT INTO regular_user VALUES ('super7@user.com');
@@ -301,20 +300,16 @@ INSERT INTO incident VALUES ('00004', '79696', 'super4@user.com');
 INSERT INTO incident VALUES ('31415', '11111', 'jose@povinho.com');
 INSERT INTO incident VALUES ('01010', '22222', 'jose@povinho.com');
 
-INSERT INTO correction_proposal VALUES ('jose@povinho.com', '1', timestamp '2019-04-05 00:00:00', 'A');
-INSERT INTO correction_proposal VALUES ('super@user.com', '2', timestamp '2019-04-05 00:00:00', 'AA');
-INSERT INTO correction_proposal VALUES ('super5@user.com', '3', timestamp '2019-01-01 00:10:00', 'AAA');
-INSERT INTO correction_proposal VALUES ('super2@user.com', '4', timestamp '2019-10-01 00:10:00', 'AAAA');
-INSERT INTO correction_proposal VALUES ('super3@user.com', '5', timestamp '2019-07-01 00:10:00', 'AAAAA');
-INSERT INTO correction_proposal VALUES ('super4@user.com', '6', timestamp '2019-04-05 00:00:00', 'AAAAAA');
-INSERT INTO correction_proposal VALUES ('jose@povinho.com', '7', timestamp '2018-08-08 00:00:00', 'AAAAAAAA');
+INSERT INTO correction_proposal VALUES ('jose@povinho.com');
+INSERT INTO correction_proposal VALUES ('super@user.com');
+INSERT INTO correction_proposal VALUES ('super2@user.com');
+INSERT INTO correction_proposal VALUES ('super3@user.com');
+INSERT INTO correction_proposal VALUES ('super4@user.com');
 
-INSERT INTO correction VALUES ('jose@povinho.com', '1', '00001');
-INSERT INTO correction VALUES ('super@user.com', '2', '00002');
-INSERT INTO correction VALUES ('super5@user.com', '3', '00003');
-INSERT INTO correction VALUES ('super2@user.com', '4', '00004');
-INSERT INTO correction VALUES ('super3@user.com', '5', '00005');
-INSERT INTO correction VALUES ('super4@user.com', '6', '00006');
-INSERT INTO correction VALUES ('jose@povinho.com', '7', '00007');
+INSERT INTO correction VALUES ('jose@povinho.com', '00000');
+INSERT INTO correction VALUES ('super@user.com', '00012');
+INSERT INTO correction VALUES ('super2@user.com', '00006');
+INSERT INTO correction VALUES ('super3@user.com', '00004');
+INSERT INTO correction VALUES ('super4@user.com', '01010');
 
 COMMIT;

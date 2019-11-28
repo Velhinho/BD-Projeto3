@@ -21,6 +21,7 @@
 
         $db = make_db();
         $columns = array("latitude", "longitude", "location_name");
+
         $table_name = "public_location";
         
         $insert = "INSERT INTO $table_name VALUES ";
@@ -32,12 +33,11 @@
     
             $stmt->bindParam(":latitude", $_POST["latitude"], PDO::PARAM_INT);
             $stmt->bindParam(":longitude", $_POST["longitude"], PDO::PARAM_INT);
-            $stmt->bindParam(":location_name", $_POST["location_name"], PDO::PARAM_INT);
+            $stmt->bindParam(":location_name", $_POST["location_name"], PDO::PARAM_STR, strlen($_POST["location_name"]));
             $stmt->execute();
             $db->commit();
 
             print_query($db, $columns, $table_name);
-
         }
         catch (PDOException $exp) {
             $db->rollBack();
