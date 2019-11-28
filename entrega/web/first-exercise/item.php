@@ -22,7 +22,7 @@
         include "../database.php";
 
         $db = make_db();
-        $columns = array("id", "description",
+        $columns = array("id", "description_text",
             "location_name", "latitude", "longitude");
         $table_name = "item";
 
@@ -43,9 +43,9 @@
             $stmt->bindParam(":latitude", $_POST["latitude"], PDO::PARAM_INT);
             $stmt->bindParam(":longitude", $_POST["longitude"], PDO::PARAM_INT);
             $stmt->execute();
-            $db->commit();
-
+            
             print_query($db, $columns, $table_name);
+            $db->commit();
         } 
         catch (PDOException $exp) {
             $db->rollBack();
