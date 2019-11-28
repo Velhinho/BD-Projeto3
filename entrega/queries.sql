@@ -45,15 +45,11 @@ SELECT regular_user.user_email, count(anomaly.id) AS anomaly_count
 
 
 --Utilizadores que registaram em 2019 incidencias em todos os locais publicos a norte de Rio Maior
-SELECT regular_user.user_email
-    FROM incident
-    INNER JOIN anomaly
-        ON incident.anomaly_id = anomaly.id
-    INNER JOIN item
-        ON item.id = incident.item_id
-    WHERE (item.longitude > 39.336775) and (tmstmp BETWEEN '2019-01-01' AND '2019-12-31')
-;
-
+SELECT incident.user_email 
+    FROM incident 
+        GROUP BY incident.user_email 
+        HAVING count(incident.user_email) = (select count(*) from public_location where public_location.longitude > 39.336775)
+; --FALTA O TEMPO
 
 --A todos os users que registaram incidencias, tiramos os que apresentaram proposta de correcao.
 --A parte do ano não sei como se faz
