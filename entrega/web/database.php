@@ -1,6 +1,5 @@
 <?php
-function make_db()
-{
+function make_db() {
     $host = "db.tecnico.ulisboa.pt";
     $user = "ist190718";
     $password = "akai";
@@ -10,8 +9,7 @@ function make_db()
     return $db;
 }
 
-function print_query(PDO $db, array $columns, $table_name)
-{
+function print_query(PDO $db, array $columns, $table_name) {
     $query = "SELECT ";
     $query .= $columns[0];
 

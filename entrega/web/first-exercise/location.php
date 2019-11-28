@@ -20,11 +20,29 @@
         include "../database.php";
 
         $db = make_db();
-        
         $columns = array("latitude", "longitude", "location_name");
         $table_name = "public_location";
-        print_query($db, $columns, $table_name);
+        
+        $insert = "INSERT INTO $table_name VALUES ";
+        $insert .= "(:latitude, :longitude, :location_name)";
 
+        try {
+            $db->beginTransaction();
+            $stmt = $db->prepare($insert);
+    
+            $stmt->bindParam(":latitude", $_POST["latitude"], PDO::PARAM_INT);
+            $stmt->bindParam(":longitude", $_POST["longitude"], PDO::PARAM_INT);
+            $stmt->bindParam(":location_name", $_POST["location_name"], PDO::PARAM_INT);
+            $stmt->execute();
+            $db->commit();
+
+            print_query($db, $columns, $table_name);
+
+        }
+        catch (PDOException $exp) {
+            $db->rollBack();
+            echo ("<p>ERROR: {$exp->getMessage()}</p>");
+        }
         ?>
     </table>
 </body>

@@ -30,7 +30,8 @@
             }
 
             $db = null;
-        } catch (PDOException $exp) {
+        } 
+        catch (PDOException $exp) {
             echo ("<p>ERROR: {$exp->getMessage()}</p>");
         }
 
