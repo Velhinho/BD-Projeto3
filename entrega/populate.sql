@@ -1,3 +1,5 @@
+BEGIN;
+
 INSERT INTO public_location VALUES (69, 69, 'kappa');
 INSERT INTO public_location VALUES (39.336776, 45, 'ring');
 INSERT INTO public_location VALUES (39.336774, 32, 'cova da prima');
@@ -314,3 +316,5 @@ INSERT INTO correction VALUES ('super2@user.com', '4', '00004');
 INSERT INTO correction VALUES ('super3@user.com', '5', '00005');
 INSERT INTO correction VALUES ('super4@user.com', '6', '00006');
 INSERT INTO correction VALUES ('jose@povinho.com', '7', '00007');
+
+COMMIT;
