@@ -58,18 +58,35 @@ SELECT user_email
 ;
 --A todos os users que registaram incidencias, tiramos os que apresentaram proposta de correcao.
 --A parte do ano não sei como se faz
-SELECT user_table.user_email, public_location.location_name
+--STILL NOT WORKING, MAS ON THE WORKS
+SELECT user_table.user_email
     FROM user_table
-    NATURAL JOIN qualified_user
-    NATURAL JOIN incident
-    NATURAL JOIN item
-    NATURAL JOIN public_location
-    EXCEPT(
-        SELECT user_email
-        NATURAL JOIN qualified_user
-        NATURAL JOIN incident
-        NATURAL JOIN correction_proposal
-    )
-    WHERE (public_location.longitude < 39.336775) and ( date_part('year', tmstmp) = date_part('year', CURRENT_DATE) )
+    JOIN qualified_user
+        ON user_table.user_email = qualified_user.user_email
+    JOIN incident
+        ON incident.user_email = qualified_user.user_email
+    JOIN item 
+        ON incident.id = item.id
+    WHERE NOT EXISTS(
+        SELECT user_table.user_email
+        FROM user_table
+        JOIN qualified_user
+            ON user_table.user_email = qualified_user.user_email
+        JOIN incident
+            ON incident.user_email = qualified_user.user_email
+        JOIN correction_proposal
+            ON correction_proposal.user_email = qualified_user.user_email
+    ) 
+    AND longitude < 39.336775
 ;
+
+SELECT *
+    FROM user_table
+    JOIN qualified_user
+        ON user_table.user_email = qualified_user.user_email
+    JOIN incident
+        ON incident.user_email = qualified_user.user_email
+    JOIN item 
+        ON incident.item_id = item.id
+    
     
