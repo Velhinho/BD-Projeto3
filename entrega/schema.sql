@@ -39,8 +39,6 @@ CREATE TABLE translation_anomaly (
 
     PRIMARY KEY (id),
     FOREIGN KEY (id) REFERENCES anomaly(id)
-    -- CONSTRAINT overlaping_areas CHECK(area != area2),
-    -- CONSTRAINT overlaping_languages CHECK(lang != lang2)
 );
 
 CREATE TABLE duplicate (
@@ -58,10 +56,6 @@ CREATE TABLE user_table (
     user_password varchar(254) NOT NULL,
 
     PRIMARY KEY (user_email)    
-    /*
-    CONSTRAINT user_specification 
-        CHECK(user_email in qualified_user or in regular_user) 
-    */
 );
 
 CREATE TABLE qualified_user (
@@ -69,10 +63,6 @@ CREATE TABLE qualified_user (
 
     PRIMARY KEY (user_email),
     FOREIGN KEY (user_email) REFERENCES user_table(user_email)
-    /*
-    CONSTRAINT not_in_regular_user
-        CHECK(user_email not in regular_user)
-    */
 );
 
 CREATE TABLE regular_user (
@@ -80,10 +70,6 @@ CREATE TABLE regular_user (
 
     PRIMARY KEY (user_email),
     FOREIGN KEY (user_email) REFERENCES user_table(user_email)
-    /*
-    CONSTRAINT not_in_qualified_user
-        CHECK(user_email not in qualified_user)
-    */
 );
 
 CREATE TABLE incident (

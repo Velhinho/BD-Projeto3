@@ -56,37 +56,3 @@ SELECT user_email
     HAVING count(u.user_email) = (SELECT count(*) 
         FROM public_location 
         WHERE latitude > 39.3);
-
---A todos os users que registaram incidencias, tiramos os que apresentaram proposta de correcao.
---A parte do ano não sei como se faz
---STILL NOT WORKING, MAS ON THE WORKS
-SELECT user_table.user_email
-    FROM user_table
-    JOIN qualified_user
-        ON user_table.user_email = qualified_user.user_email
-    JOIN incident
-        ON incident.user_email = qualified_user.user_email
-    JOIN item 
-        ON incident.id = item.id
-    WHERE NOT EXISTS(
-        SELECT user_table.user_email
-        FROM user_table
-        JOIN qualified_user
-            ON user_table.user_email = qualified_user.user_email
-        JOIN incident
-            ON incident.user_email = qualified_user.user_email
-        JOIN correction_proposal
-            ON correction_proposal.user_email = qualified_user.user_email
-    ) 
-    AND longitude < 39.336775;
-
-SELECT *
-    FROM user_table
-    JOIN qualified_user
-        ON user_table.user_email = qualified_user.user_email
-    JOIN incident
-        ON incident.user_email = qualified_user.user_email
-    JOIN item 
-        ON incident.item_id = item.id
-    
-    
