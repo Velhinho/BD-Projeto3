@@ -43,7 +43,6 @@ SELECT regular_user.user_email, count(anomaly.id) AS anomaly_count
             GROUP BY regular_user.user_email
     );
 
-
 --Utilizadores que registaram em 2019 incidencias em todos os locais publicos a norte de Rio Maior
 SELECT user_email
     FROM (
@@ -79,8 +78,7 @@ SELECT user_table.user_email
         JOIN correction_proposal
             ON correction_proposal.user_email = qualified_user.user_email
     ) 
-    AND longitude < 39.336775
-;
+    AND longitude < 39.336775;
 
 SELECT *
     FROM user_table

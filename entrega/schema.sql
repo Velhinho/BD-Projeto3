@@ -104,7 +104,7 @@ CREATE TABLE correction_proposal (
     nro SERIAL,
 
     UNIQUE(nro),
-    PRIMARY KEY (user_email),
+    PRIMARY KEY (user_email, nro),
     FOREIGN KEY (user_email) REFERENCES qualified_user(user_email)
 );
 
@@ -114,8 +114,7 @@ CREATE TABLE correction (
     nro SERIAL,
 
     PRIMARY KEY (user_email, nro, anomaly_id),
-    FOREIGN KEY (user_email) REFERENCES correction_proposal(user_email),
-    FOREIGN KEY (nro) REFERENCES correction_proposal(nro),
+    FOREIGN KEY (user_email, nro) REFERENCES correction_proposal(user_email, nro),
     FOREIGN KEY (anomaly_id) REFERENCES incident(anomaly_id)
 );
 

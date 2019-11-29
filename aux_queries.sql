@@ -138,15 +138,30 @@ SELECT item.id, incident.user_email
     INNER JOIN anomaly
         ON incident.anomaly_id = anomaly.id
     WHERE latitude < 39.3
-    AND date_part('year', anomaly.tmstmp) = date_part('year', current_date)
+    AND date_part('year', anomaly.tmstmp) = date_part('year', current_date);
 
--- Anomaly corrections from each qualified user
-SELECT user_email
+-- All users that made a correction to each of their reported incidents
+SELECT qualified_user.user_email, correction.anomaly_id
     FROM qualified_user
+    INNER JOIN incident
+        ON qualified_user.user_email = incident.user_email
     INNER JOIN correction_proposal
         ON qualified_user.user_email = correction_proposal.user_email
     INNER JOIN correction
         ON correction_proposal.user_email = correction.user_email;
 
--- All users that made a correction to each of their reported incidents
-SELECT 
+SELECT qualified_user.user_email
+    FROM qualified_user
+    WHERE NOT EXISTS (
+        SELECT qualified_user.user_email
+            FROM qualified_user
+        EXCEPT
+        SELECT qualified_user.user_email
+            FROM qualified_user
+            INNER JOIN incident
+                ON qualified_user.user_email = incident.user_email
+            INNER JOIN correction_proposal
+                ON qualified_user.user_email = correction_proposal.user_email
+            INNER JOIN correction
+                ON correction_proposal.user_email = correction.user_email
+    );
