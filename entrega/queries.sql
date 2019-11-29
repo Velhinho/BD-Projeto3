@@ -1,4 +1,4 @@
--- Public location with the most anomalies
+-- Public location with the most anomalies 1)
 SELECT public_location.location_name,
         count(incident.anomaly_id) AS anomaly_count
     FROM public_location
@@ -19,7 +19,7 @@ SELECT public_location.location_name,
         GROUP BY public_location.location_name
     );
 
--- Regular User with the most reported anomalies
+-- Regular User with the most reported anomalies 2)
 SELECT regular_user.user_email, count(anomaly.id) AS anomaly_count
     FROM anomaly
     INNER JOIN translation_anomaly
@@ -43,16 +43,43 @@ SELECT regular_user.user_email, count(anomaly.id) AS anomaly_count
             GROUP BY regular_user.user_email
     );
 
---Utilizadores que registaram em 2019 incidencias em todos os locais publicos a norte de Rio Maior
+--Utilizadores que registaram em 2019 incidencias em todos os locais publicos a norte de Rio Maior 3)
 SELECT user_email
-    FROM (
-        SELECT user_email, latitude, longitude 
-            FROM incident 
-            JOIN item 
-                ON item.id = incident.item_id 
-            GROUP BY user_email, longitude, latitude
-        ) AS u
-    GROUP BY u.user_email
-    HAVING count(u.user_email) = (SELECT count(*) 
-        FROM public_location 
-        WHERE latitude > 39.3);
+    FROM (SELECT DISTINCT user_email, item.longitude, item.latitude
+        FROM public_location
+            LEFT JOIN item
+            ON public_location.longitude = item.longitude
+            AND public_location.latitude = item.latitude
+            JOIN incident
+            ON item.id = incident.item_id
+            JOIN anomaly
+            ON anomaly.id = incident.anomaly_id
+        WHERE item.latitude > 39.336775
+            AND EXTRACT( YEAR FROM tmstmp) =2019
+        GROUP BY user_email, item.longitude, item.latitude) a
+    GROUP BY user_email
+    HAVING count(*) = (
+        SELECT count(*)
+        FROM public_location
+        WHERE latitude> 39.336775
+    );
+
+
+ --4)
+SELECT DISTINCT user_email
+    FROM qualified_user
+    EXCEPT
+    SELECT correction_proposal.user_email
+        FROM qualified_user 
+        INNER JOIN correction_proposal 
+            ON correction_proposal.user_email = qualified_user.user_email 
+        INNER JOIN correction 
+            ON correction.nro = correction_proposal.nro 
+        INNER JOIN anomaly 
+            ON anomaly.id = correction.anomaly_id 
+        INNER JOIN incident 
+            ON incident.anomaly_id = anomaly.id 
+        INNER JOIN item 
+            ON item.id = incident.item_id
+        WHERE item.latitude > 39.336775 
+        AND EXTRACT(YEAR FROM anomaly.tmstmp) = date_part('year', CURRENT_DATE);

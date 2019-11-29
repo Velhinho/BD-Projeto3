@@ -3,7 +3,7 @@ BEGIN;
 INSERT INTO public_location VALUES (69, 69, 'kappa');
 INSERT INTO public_location VALUES (39.336776, 45, 'ring');
 INSERT INTO public_location VALUES (39.336774, 32, 'cova da prima');
-INSERT INTO public_location VALUES (39.336775, 22, 'rio tinto');
+INSERT INTO public_location VALUES (39.336775, -8.936379, 'rio maior');
 INSERT INTO public_location VALUES (9, 46, 'chelas');
 INSERT INTO public_location VALUES (21, 48, 'cacem');
 INSERT INTO public_location VALUES (39, 44, 'barcarena');
@@ -64,7 +64,7 @@ INSERT INTO item VALUES (
     'Tintol2',
     'rio tinto',
     39.336775,
-    22
+     -8.936379
 );
 
 INSERT INTO item VALUES (
@@ -88,7 +88,7 @@ INSERT INTO item VALUES (
     'Tintol',
     'rio tinto',
     39.336775,
-    22
+     -8.936379
 );
 
 INSERT INTO item VALUES (
