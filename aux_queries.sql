@@ -128,3 +128,25 @@ SELECT user_table.user_email, count(anomaly.id) AS anomaly_count
                     GROUP BY user_table.user_email
             ) AS anomalies_per_user
     );
+
+
+-- Incidents registered above Rio Maior and in the current year
+SELECT item.id, incident.user_email
+    FROM item
+    INNER JOIN incident
+        ON incident.item_id = item.id
+    INNER JOIN anomaly
+        ON incident.anomaly_id = anomaly.id
+    WHERE latitude < 39.3
+    AND date_part('year', anomaly.tmstmp) = date_part('year', current_date)
+
+-- Anomaly corrections from each qualified user
+SELECT user_email
+    FROM qualified_user
+    INNER JOIN correction_proposal
+        ON qualified_user.user_email = correction_proposal.user_email
+    INNER JOIN correction
+        ON correction_proposal.user_email = correction.user_email;
+
+-- All users that made a correction to each of their reported incidents
+SELECT 

@@ -300,11 +300,35 @@ INSERT INTO incident VALUES ('00004', '79696', 'super4@user.com');
 INSERT INTO incident VALUES ('31415', '11111', 'jose@povinho.com');
 INSERT INTO incident VALUES ('01010', '22222', 'jose@povinho.com');
 
-INSERT INTO correction_proposal VALUES ('jose@povinho.com');
-INSERT INTO correction_proposal VALUES ('super@user.com');
-INSERT INTO correction_proposal VALUES ('super2@user.com');
-INSERT INTO correction_proposal VALUES ('super3@user.com');
-INSERT INTO correction_proposal VALUES ('super4@user.com');
+INSERT INTO correction_proposal VALUES (
+    'jose@povinho.com',
+    '2019-01-01 00:00:00',
+    'corrected'
+);
+
+INSERT INTO correction_proposal VALUES (
+    'super@user.com',
+    '2019-01-01 00:00:00',
+    'corrected2'
+);
+
+INSERT INTO correction_proposal VALUES (
+    'super2@user.com',
+    '2019-01-01 00:00:00',
+    'corrected3'
+);
+
+INSERT INTO correction_proposal VALUES (
+    'super3@user.com',
+    '2019-01-01 00:00:00',
+    'corrected4'
+);
+
+INSERT INTO correction_proposal VALUES (
+    'super4@user.com',
+    '2019-01-01 00:00:00',
+    'corrected5'
+);
 
 INSERT INTO correction VALUES ('jose@povinho.com', '00000');
 INSERT INTO correction VALUES ('super@user.com', '00012');

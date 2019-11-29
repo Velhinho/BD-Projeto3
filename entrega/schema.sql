@@ -49,8 +49,8 @@ CREATE TABLE duplicate (
     
     PRIMARY KEY (item1, item2),
     FOREIGN KEY (item1) REFERENCES item(id),
-    FOREIGN KEY (item2) REFERENCES item(id)
-    -- CONSTRAINT self_duplicate CHECK(item1 < item2)
+    FOREIGN KEY (item2) REFERENCES item(id),
+    CONSTRAINT self_duplicate CHECK(item1 < item2)
 );
 
 CREATE TABLE user_table (
@@ -99,6 +99,8 @@ CREATE TABLE incident (
 
 CREATE TABLE correction_proposal (
     user_email varchar(254),
+    tmstmp timestamp NOT NULL,
+    correction_text text NOT NULL,
     nro SERIAL,
 
     UNIQUE(nro),
